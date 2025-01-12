@@ -23,20 +23,16 @@ def extract_items_from_receipt(image_data):
     # Save image data to a temporary file
     with open('./delly_belly/server/uploads/image.png', 'wb') as temp_file:
         temp_file.write(image_data)
-    
     # Use PIL to open the image
     image = Image.open('./delly_belly/server/uploads/image.png')
-    
     # Extract text using pytesseract
     extracted_text = pytesseract.image_to_string(image)
-
     return processed("\n".join(extracted_text.split()))
 
 def processed(text):
     # Define the API URL and your API key (replace with your actual API key)
     prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the text below. Do not include non-consumable items. Replace any abbreviations with its English word adjacent. \n\n{text}"
     co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
-
     res = co.chat(
         model="command-r-plus-08-2024",
         messages=[
@@ -56,8 +52,8 @@ def processed(text):
                          "required": ["ingredients"]
                         }}
     )
-
-    return json.loads(res.message.content[0].text).get('ingredients')
+    ingredients = json.loads(res.message.content[0].text).get('ingredients')
+    return ingredients[0: min(8, len(ingredients))]
 
 
 def get_instructions(dishes):
@@ -136,8 +132,6 @@ CORS(app)
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
@@ -156,7 +150,7 @@ def upload_receipt():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file_path = os.path.join('./uploads', filename)
         file.save(file_path)
 
         try:
