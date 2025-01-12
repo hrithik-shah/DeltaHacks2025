@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 import requests
@@ -24,7 +25,7 @@ def extract_items_from_receipt(image_data):
         temp_file.write(image_data)
     
     # Use PIL to open the image
-    image = Image.open('image.png')
+    image = Image.open('./delly_belly/server/uploads/image.png')
     
     # Extract text using pytesseract
     extracted_text = pytesseract.image_to_string(image)
@@ -104,6 +105,7 @@ def fetch_recipes(items):
     
 
 app = Flask(__name__)
+CORS(app) 
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -133,17 +135,13 @@ def upload_receipt():
 
         try:
             with open(file_path, 'rb') as image_file:
-                print("entered exception1")
                 items = extract_items_from_receipt(image_file.read())
-                print("entered exception2")
 
             os.remove(file_path)
-            print("entered exception3")
             return jsonify({'items': items}), 200
 
         except Exception as e:
             os.remove(file_path)
-            print("here I am", e)
             return jsonify({'error': f'Error extracting items: {str(e)}'}), 500
 
     return jsonify({'error': 'Invalid file type'}), 400
