@@ -1,6 +1,4 @@
 
----
-
 # **DeltaHacks2025 - Deli Belly**  
 
 **Deli Belly** is an innovative app that reduces food waste by helping users make the most of their groceries. Simply snap a picture of your grocery bill, and the app generates personalized recipe suggestions based on the ingredients purchased.  
@@ -115,5 +113,3 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
   - [Shaurya Suri](https://github.com/ShauryaSuri)  
 - **DeltaHacks Mentors**: Thanks to the [DeltaHacks](https://www.deltahacks.com/) team for their invaluable guidance and support.  
 - **API Providers**: Special thanks to **Cohere AI** and **Spoonacular** for enabling this project.  
-
----
