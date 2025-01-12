@@ -34,7 +34,7 @@ def extract_items_from_receipt(image_data):
 
 def processed(text):
     # Define the API URL and your API key (replace with your actual API key)
-    prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the text below. Do not include non-consumable items. Replace any abbreviations with its English word adjacent.\n\n{text}"
+    prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the text below. Do not include non-consumable items. Replace any abbreviations with its English word adjacent. \n\n{text}"
     co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
 
     res = co.chat(
@@ -58,6 +58,23 @@ def processed(text):
     )
 
     return json.loads(res.message.content[0].text).get('ingredients')
+
+
+def get_instructions(dishes):
+    # Define the API URL and your API key (replace with your actual API key)
+    prompt = f"Generate a JSON object that maps 'dish name' keys to 'recipe instructions' values given an array of strings of dish names from the text below. Use multiple lines for the instructions. Number the lines for the instructions. Generate the each instruction set as one string. \n\n{dishes}"
+    co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
+    res = co.chat(
+        model="command-r-plus-08-2024",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+        response_format={"type": "json_object"}
+    )
+    return json.loads(res.message.content[0].text)
 
 
 def fetch_recipes(items):
@@ -90,19 +107,28 @@ def fetch_recipes(items):
 
     if response.status_code == 200:
         recipes = response.json()
-        # Simplify the response to return only the relevant details
-        return [
+        simplified_recipies = [
             {
                 'title': recipe['title'],
-                'image': recipe['image'],
                 'usedIngredients': [i['name'] for i in recipe['usedIngredients']],
                 'missedIngredients': [i['name'] for i in recipe['missedIngredients']],
             }
-            for recipe in recipes
+            for recipe in recipes[0: max(5, len(recipes))]
         ]
+        # Simplify the response to return only the relevant details
+        return processed_recipes(simplified_recipies)
     else:
         raise Exception(f"API error: {response.status_code} - {response.text}")
     
+
+def processed_recipes(recipes):
+    instruction_map = get_instructions([recipe['title'] for recipe in recipes])
+    for k, v in instruction_map.items():
+        for recipe in recipes:
+            if recipe['title'] == k:
+                recipe['instructions'] = v
+                break
+    return recipes
 
 app = Flask(__name__)
 CORS(app) 
@@ -161,4 +187,4 @@ def get_recipes():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    print(processed("flour salt\nPNT BUTTR"))
+    print(get_instructions(['Dosa', 'Pizza']))
