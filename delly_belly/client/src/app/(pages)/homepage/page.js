@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Fugaz_One, Inter, Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { FallbackMode } from "next/dist/lib/fallback";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
@@ -59,8 +60,13 @@ const Homepage = () => {
   const handleFileRemove = () => {
     setUploadedFile(null);
     setIngredients([]);
-    document.getElementById("file-input").value = "";
-  };
+
+    // Check if the input exists before clearing
+    const fileInput = document.getElementById("file-input");
+    if (fileInput) {
+        fileInput.value = "";
+    }
+};
 
   const getRecipes = async (items) => {
     try {
