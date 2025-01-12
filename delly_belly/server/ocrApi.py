@@ -34,7 +34,7 @@ def extract_items_from_receipt(image_data):
 
 def processed(text):
     # Define the API URL and your API key (replace with your actual API key)
-    prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the following text:\n{text}"
+    prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the text below. Do not include non-consumable items. Replace any abbreviations with its English word adjacent.\n\n{text}"
     co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
 
     res = co.chat(

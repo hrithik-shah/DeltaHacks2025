@@ -62,8 +62,32 @@ const Homepage = () => {
     document.getElementById("file-input").value = "";
   };
 
+  const getRecipes = async (items) => {
+    try {
+      const response = await axios.post('/recipes', {
+        items: items, // Pass the items list here
+      });
+  
+      // Handle the successful response
+      console.log('Recipes:', response.data.recipes);
+      return response.data.recipes;
+    } catch (error) {
+      // Handle errors
+      if (error.response) {
+        console.error('Error Response:', error.response.data);
+      } else {
+        console.error('Error:', error.message);
+      }
+      throw error;
+    }
+  };
+
   const navigateTo = (pagename) => {
-    router.push(`http://localhost:3000/${pagename}`);
+    getRecipes(ingredients)
+      .then((recipes) => {
+        localStorage.setItem('recipes', recipes); ;
+        router.push(`http://localhost:3000/${pagename}`);
+      });
   };
 
   return (

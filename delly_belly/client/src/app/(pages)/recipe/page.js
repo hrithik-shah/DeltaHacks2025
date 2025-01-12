@@ -1,46 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Recipes() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const storedRecipes = localStorage.getItem('recipes');
+    if (storedRecipes) {
+      setRecipes(JSON.parse(storedRecipes));
+    }
+  }, []);
+
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [recipes, setRecipes] = useState([
-    {
-      title: "Chicken Curry",
-      readyInMinutes: 30,
-      ingredients: ["chicken", "tomatoes", "potatoes", "spices"],
-      instructions:
-        "1. Cook the chicken with spices. 2. Add tomatoes and potatoes. 3. Simmer for 30 minutes.",
-    },
-    {
-      title: "Egg Salad",
-      readyInMinutes: 15,
-      ingredients: ["eggs", "tomatoes", "peas", "lettuce"],
-      instructions:
-        "1. Boil the eggs. 2. Chop the vegetables. 3. Mix together with a dressing.",
-    },
-    {
-      title: "Potato and Chicken Bake",
-      readyInMinutes: 40,
-      ingredients: ["potatoes", "chicken", "cheese", "cream"],
-      instructions:
-        "1. Layer potatoes and chicken in a baking dish. 2. Add cream and cheese. 3. Bake for 40 minutes.",
-    },
-    {
-      title: "Tomato Chicken Soup",
-      readyInMinutes: 25,
-      ingredients: ["chicken", "tomatoes", "onions", "spices"],
-      instructions:
-        "1. Cook chicken and onions. 2. Add tomatoes and spices. 3. Simmer for 25 minutes.",
-    },
-    {
-      title: "Peas and Eggs Stir Fry",
-      readyInMinutes: 20,
-      ingredients: ["peas", "eggs", "onions", "spices"],
-      instructions:
-        "1. Scramble eggs. 2. Cook peas and onions in a pan. 3. Combine and stir-fry for 20 minutes.",
-    },
-  ]);
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-400 to-purple-500">
