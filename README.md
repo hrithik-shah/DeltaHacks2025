@@ -19,7 +19,6 @@ Deli Belly is an innovative app designed to reduce food waste by helping users m
 - **Backend**: Powered by [Flask](https://flask.palletsprojects.com/) for a lightweight and flexible backend.
 - **APIs**:
   - [Cohere AI](https://cohere.ai/) for natural language processing and generating recipe suggestions.
-  - [Auth0](https://auth0.com/) for user authentication and account management.
   - [Spoonacular](https://spoonacular.com/) for recipe data and ingredient suggestions.
 
 ## Installation
@@ -60,10 +59,15 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
+and on a separate terminal run
+```bash
+cd delly_belly/client
+npm run dev
+```
 
 ### 4. Set up environment variables
 
-Ensure you have the required environment variables set up for APIs and authentication keys (Cohere, Auth0, and Spoonacular).
+Ensure you have the required environment variables set up for APIs and authentication keys (Cohere, and Spoonacular).
 
 ## How to Use
 
@@ -82,8 +86,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgements
 
+- Thanks to my two team members: [Akshay Tadi](https://github.com/AkshayTadi123) and [Shaurya Suri](https://github.com/ShauryaSuri)
 - Thanks to [DeltaHack's mentors](https://www.deltahacks.com/) for their invaluable guidance and support throughout the development process.
-- Special thanks to the API providers for making this project possible: Cohere AI, Auth0, and Spoonacular.
+- Special thanks to the API providers for making this project possible: Cohere AI, and Spoonacular.
 
 ---
 
