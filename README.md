@@ -118,5 +118,3 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **API Providers**: Special thanks to **Cohere AI** and **Spoonacular** for enabling this project.  
 
 ---
-
-This README now has a professional and polished look with enhanced clarity and readability. Let me know if there's anything else you'd like to refine!  
