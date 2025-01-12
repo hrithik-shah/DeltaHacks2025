@@ -45,7 +45,12 @@ npm install
 npm run dev
 ```
 
-### 3. Set up the backend
+### 3. Set up environment variables
+
+Ensure you have the required environment variables set up for APIs and authentication keys (Cohere, and Spoonacular).
+Save these as COHERE_API_KEY and SPOONACULAR_API_KEY in delly_belly/config.env.
+
+### 4. Set up the backend
 
 - Install dependencies:
 
@@ -59,15 +64,11 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
-and on a separate terminal run
+and, simulataneously, on a separate terminal run
 ```bash
 cd delly_belly/client
 npm run dev
 ```
-
-### 4. Set up environment variables
-
-Ensure you have the required environment variables set up for APIs and authentication keys (Cohere, and Spoonacular).
 
 ## How to Use
 
