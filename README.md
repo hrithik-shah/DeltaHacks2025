@@ -82,10 +82,9 @@ npm run dev
 
 ## **How to Use**  
 
-1. **Sign up or log in** to the app.  
-2. **Snap a picture** of your grocery receipt and upload it.  
-3. Receive a **list of recipes** generated from the ingredients on your bill.  
-4. Start cooking and enjoy delicious meals while contributing to **food waste reduction**!  
+1. **Snap a picture** of your grocery receipt and upload it.  
+2. Receive a **list of recipes** generated from the ingredients on your bill.  
+3. Start cooking and enjoy delicious meals while contributing to **food waste reduction**!  
 
 ---
 
