@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Fugaz_One, Inter, Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
-//blabla
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
@@ -14,19 +14,41 @@ const Homepage = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [ingredients, setIngredients] = useState([]);
   const [loading, setLoading] = useState(false);
-  const[showButton, setShowButton] = useState(true);
+  const [showButton, setShowButton] = useState(true);
   const [ingredientsUploaded, setIngredientsUploaded] = useState(false);
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     if (!uploadedFile) return;
 
     setLoading(true);
     setShowButton(false);
-    setTimeout(() => {
-      setIngredients(["chicken", "eggs", "milk", "potatoes", "tomatoes", "peas"]);
-      setIngredientsUploaded(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("receipt", uploadedFile);
+
+      const response = await axios.post(
+        'http://127.0.0.1:5000/upload',
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const data = response.data;
+      if (data.items) {
+        setIngredients(data.items);
+        setIngredientsUploaded(true);
+      } else {
+        console.error("No items found in the response.");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   const handleFileChange = (event) => {
@@ -44,14 +66,15 @@ const Homepage = () => {
     router.push(`http://localhost:3000/${pagename}`);
   };
 
-  const handleNext = () => {
-
-  }
-
   return (
-    <div className={`flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-r from-[#8EC5FC] to-[#E0C3FC] ${inter.className}`}>
-      <h1 className={`text-5xl text-center font-semibold mb-8 ${poppins.className}`}>
-        Send us a picture of your grocery receipt and we'll <span className={`font-bold ${fugazOne.className}`}>cook</span> for you!
+    <div
+      className={`flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-r from-[#8EC5FC] to-[#E0C3FC] ${inter.className}`}
+    >
+      <h1
+        className={`text-5xl text-center font-semibold mb-8 ${poppins.className}`}
+      >
+        Send us a picture of your grocery receipt and we'll{" "}
+        <span className={`font-bold ${fugazOne.className}`}>cook</span> for you!
       </h1>
 
       <div className="mb-6">
@@ -66,11 +89,12 @@ const Homepage = () => {
           />
         )}
         {uploadedFile && !loading && (
-          <p className="mt-2 text-sm text-gray-700">Uploaded File: {uploadedFile.name}</p>
+          <p className="mt-2 text-sm text-gray-700">
+            Uploaded File: {uploadedFile.name}
+          </p>
         )}
       </div>
 
-      
       {loading ? (
         <p className="text-lg text-gray-700">Processing...</p>
       ) : (
@@ -78,7 +102,12 @@ const Homepage = () => {
           {ingredients.length > 0 && (
             <ul className="list-decimal pl-5 space-y-2">
               {ingredients.map((ingredient, index) => (
-                <li key={index} className="transition-all duration-200 hover:text-blue-500">{ingredient}</li>
+                <li
+                  key={index}
+                  className="transition-all duration-200 hover:text-blue-500"
+                >
+                  {ingredient}
+                </li>
               ))}
             </ul>
           )}
@@ -95,7 +124,8 @@ const Homepage = () => {
           </button>
           <button
             onClick={handleFileRemove}
-            className="button-56 relative flex items-center justify-center h-12 px-6 text-lg font-sans font-normal text-[#111] bg-[#fee6e3] border-2 border-[#111] rounded-lg cursor-pointer box-border hover:bg-[#ffdeda] active:bg-[#ffdeda] transition-all ease-in-out duration-200">
+            className="button-56 relative flex items-center justify-center h-12 px-6 text-lg font-sans font-normal text-[#111] bg-[#fee6e3] border-2 border-[#111] rounded-lg cursor-pointer box-border hover:bg-[#ffdeda] active:bg-[#ffdeda] transition-all ease-in-out duration-200"
+          >
             Remove
           </button>
         </div>
@@ -103,13 +133,12 @@ const Homepage = () => {
 
       {uploadedFile && !loading && ingredientsUploaded && (
         <button
-        onClick={() => navigateTo("recipe")}
-        className="button-56 relative flex items-center justify-center h-12 px-6 text-lg font-sans font-normal text-[#111] bg-[#fee6e3] border-2 border-[#111] rounded-lg cursor-pointer box-border hover:bg-[#ffdeda] active:bg-[#ffdeda] transition-all ease-in-out duration-200"
-      >
-        Next
-      </button>
+          onClick={() => navigateTo("recipe")}
+          className="button-56 relative flex items-center justify-center h-12 px-6 text-lg font-sans font-normal text-[#111] bg-[#fee6e3] border-2 border-[#111] rounded-lg cursor-pointer box-border hover:bg-[#ffdeda] active:bg-[#ffdeda] transition-all ease-in-out duration-200"
+        >
+          Next
+        </button>
       )}
-
     </div>
   );
 };
