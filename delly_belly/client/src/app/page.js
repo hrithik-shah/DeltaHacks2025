@@ -1,9 +1,18 @@
-import Image from "next/image";
+"use client"
+
+import { use, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/homepage");
+  }, [router]);
+
   return (
     <div>
-      <h1>Hello world</h1>
+      <p>Redirecting...</p>
     </div>
   );
 }
