@@ -67,8 +67,7 @@ const Homepage = () => {
       const response = await axios.post('http://127.0.0.1:5000/recipes', { items });
   
       // Handle the successful response
-      console.log(typeof response.data.recipes)
-      return [...response.data.recipes];
+      return response.data.recipes;
     } catch (error) {
       // Handle errors
       if (error.response) {

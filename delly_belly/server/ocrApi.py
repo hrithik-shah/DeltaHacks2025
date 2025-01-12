@@ -62,7 +62,7 @@ def processed(text):
 
 def get_instructions(dishes):
     # Define the API URL and your API key (replace with your actual API key)
-    prompt = f"Generate a JSON object that maps 'dish name' keys to 'recipe instructions' values given an array of strings of dish names from the text below. Use multiple lines for the instructions. Number the lines for the instructions. Generate the each instruction set as one string. \n\n{dishes}"
+    prompt = f"Generate a JSON object that maps 'dish name' keys to 'recipe instructions' values given an array of strings of dish names from the text below. Number each step for the instructions. End every sentence with \"#\" Generate the each instruction set as one string. \n\n{dishes}"
     co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
     res = co.chat(
         model="command-r-plus-08-2024",
@@ -113,7 +113,7 @@ def fetch_recipes(items):
                 'usedIngredients': [i['name'] for i in recipe['usedIngredients']],
                 'missedIngredients': [i['name'] for i in recipe['missedIngredients']],
             }
-            for recipe in recipes[0: max(5, len(recipes))]
+            for recipe in recipes[0: min(5, len(recipes))]
         ]
         # Simplify the response to return only the relevant details
         return processed_recipes(simplified_recipies)
@@ -126,7 +126,7 @@ def processed_recipes(recipes):
     for k, v in instruction_map.items():
         for recipe in recipes:
             if recipe['title'] == k:
-                recipe['instructions'] = v
+                recipe['instructions'] = '\n'.join(json.dumps(v).split('#'))
                 break
     return recipes
 

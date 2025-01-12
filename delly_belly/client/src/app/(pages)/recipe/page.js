@@ -10,7 +10,7 @@ export default function Recipes() {
     // Retrieve recipes from localStorage
     const storedRecipes = localStorage.getItem('recipes');
     if (storedRecipes) {
-      const parsedRecipes = [...JSON.parse(storedRecipes)].slice(0, 5);
+      const parsedRecipes = [...JSON.parse(storedRecipes) ]
       setRecipes(parsedRecipes);
     }
   }, []); // Empty dependency ensures this runs only once
@@ -50,7 +50,17 @@ export default function Recipes() {
               ))}
             </ul>
             <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-2">Instructions:</h3>
-            <p className="text-lg text-gray-700">{selectedRecipe.instructions}</p>
+            <div className="text-lg text-gray-700">
+            {selectedRecipe.instructions
+              .replace(/^"|"$/g, '') // Remove leading and trailing quotation marks
+              .split('\n') // Split by new lines
+              .map((line, index) => (
+                <p key={index}>
+                  {line}
+                  <br />
+                </p>
+              ))}
+            </div>
           </div>
         ) : (
           <p className="text-2xl text-gray-700">Select a recipe to see the details.</p>
