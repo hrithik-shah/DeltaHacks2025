@@ -1,96 +1,122 @@
-Here's a sample README for your project on GitHub:
+Here's the improved README with refined language, better formatting, and consistent styling while keeping the content unchanged:  
 
 ---
 
-# DeltaHacks2025 - Deli Belly
+# **DeltaHacks2025 - Deli Belly**  
 
-Deli Belly is an innovative app designed to reduce food waste by helping users make the most of their groceries. Users can simply snap a picture of their grocery bill, and the app generates personalized recipe suggestions based on the ingredients purchased.
-
-## Features
-
-- **Snap and Upload**: Easily upload an image of your grocery bill.
-- **Recipe Suggestions**: Get personalized recipe ideas based on the ingredients listed on your bill.
-- **Food Waste Reduction**: Discover creative ways to use what you already have, minimizing waste.
-- **User-Friendly Interface**: Intuitive app design for a seamless experience.
-
-## Tech Stack
-
-- **Frontend**: Built with [Next.js](https://nextjs.org/) for a fast, scalable web application.
-- **Backend**: Powered by [Flask](https://flask.palletsprojects.com/) for a lightweight and flexible backend.
-- **APIs**:
-  - [Cohere AI](https://cohere.ai/) for natural language processing and generating recipe suggestions.
-  - [Spoonacular](https://spoonacular.com/) for recipe data and ingredient suggestions.
-
-## Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/hrithik-shah/DeltaHacks2025.git
-cd DeltaHacks2025
-```
-
-### 2. Set up the frontend
-
-- Install dependencies:
-
-```bash
-cd frontend
-npm install
-```
-
-- Start the Next.js development server:
-
-```bash
-npm run dev
-```
-
-### 3. Set up environment variables
-
-Ensure you have the required environment variables set up for APIs and authentication keys (Cohere, and Spoonacular).
-Save these as COHERE_API_KEY and SPOONACULAR_API_KEY in delly_belly/config.env.
-
-### 4. Set up the backend
-
-- Install dependencies:
-
-```bash
-cd backend
-pip install -r requirements.txt
-```
-
-- Start the Flask backend server:
-
-```bash
-python app.py
-```
-and, simulataneously, on a separate terminal run
-```bash
-cd delly_belly/client
-npm run dev
-```
-
-## How to Use
-
-1. Sign up or log in to the app.
-2. Take a picture of your grocery receipt and upload it.
-3. Receive a list of recipes generated based on the ingredients from your bill.
-4. Start cooking and enjoy your meals while reducing food waste!
-
-## Contributing
-
-We welcome contributions! If you'd like to help improve the project, feel free to fork the repository, make changes, and submit a pull request. Please ensure that your code follows the existing coding style and includes appropriate tests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-- Thanks to my two team members: [Akshay Tadi](https://github.com/AkshayTadi123) and [Shaurya Suri](https://github.com/ShauryaSuri)
-- Thanks to [DeltaHack's mentors](https://www.deltahacks.com/) for their invaluable guidance and support throughout the development process.
-- Special thanks to the API providers for making this project possible: Cohere AI, and Spoonacular.
+**Deli Belly** is an innovative app that reduces food waste by helping users make the most of their groceries. Simply snap a picture of your grocery bill, and the app generates personalized recipe suggestions based on the ingredients purchased.  
 
 ---
 
-This README includes sections for project overview, installation instructions, tech stack, and usage, and also acknowledges contributors and licensing. Let me know if you'd like to adjust any details!
+## **Features**  
+
+- **Snap and Upload**: Easily upload an image of your grocery bill.  
+- **Recipe Suggestions**: Receive personalized recipe ideas tailored to the ingredients listed on your bill.  
+- **Food Waste Reduction**: Discover creative ways to use what you already have, minimizing waste.  
+- **User-Friendly Interface**: Enjoy a seamless and intuitive app experience.  
+
+---
+
+## **Tech Stack**  
+
+- **Frontend**: Built with [Next.js](https://nextjs.org/) for a fast, scalable, and responsive web application.  
+- **Backend**: Powered by [Flask](https://flask.palletsprojects.com/) for a lightweight and flexible backend.  
+- **APIs**:  
+  - [Cohere AI](https://cohere.ai/) for natural language processing and recipe generation.  
+  - [Spoonacular](https://spoonacular.com/) for recipe data and ingredient suggestions.  
+
+---
+
+## **Installation**  
+
+### 1. **Clone the Repository**  
+
+```bash  
+git clone https://github.com/hrithik-shah/DeltaHacks2025.git  
+cd DeltaHacks2025  
+```  
+
+### 2. **Set Up the Frontend**  
+
+- Install dependencies:  
+
+```bash  
+cd frontend  
+npm install  
+```  
+
+- Start the Next.js development server:  
+
+```bash  
+npm run dev  
+```  
+
+### 3. **Set Up Environment Variables**  
+
+Create a `config.env` file in `delly_belly/` and define the following keys:  
+- `COHERE_API_KEY`  
+- `SPOONACULAR_API_KEY`  
+
+Ensure valid API keys for Cohere and Spoonacular are used.  
+
+### 4. **Set Up the Backend**  
+
+- Install dependencies:  
+
+```bash  
+cd backend  
+pip install -r requirements.txt  
+```  
+
+- Start the Flask backend server:  
+
+```bash  
+python app.py  
+```  
+
+- Start the client development server in a separate terminal:  
+
+```bash  
+cd delly_belly/client  
+npm run dev  
+```  
+
+---
+
+## **How to Use**  
+
+1. **Sign up or log in** to the app.  
+2. **Snap a picture** of your grocery receipt and upload it.  
+3. Receive a **list of recipes** generated from the ingredients on your bill.  
+4. Start cooking and enjoy delicious meals while contributing to **food waste reduction**!  
+
+---
+
+## **Contributing**  
+
+Contributions are always welcome! To help improve the project:  
+1. Fork the repository.  
+2. Make your changes.  
+3. Submit a pull request.  
+
+Ensure your code adheres to the existing style and includes appropriate tests.  
+
+---
+
+## **License**  
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.  
+
+---
+
+## **Acknowledgements**  
+
+- **Team Members**:  
+  - [Akshay Tadi](https://github.com/AkshayTadi123)  
+  - [Shaurya Suri](https://github.com/ShauryaSuri)  
+- **DeltaHacks Mentors**: Thanks to the [DeltaHacks](https://www.deltahacks.com/) team for their invaluable guidance and support.  
+- **API Providers**: Special thanks to **Cohere AI** and **Spoonacular** for enabling this project.  
+
+---
+
+This README now has a professional and polished look with enhanced clarity and readability. Let me know if there's anything else you'd like to refine!  
