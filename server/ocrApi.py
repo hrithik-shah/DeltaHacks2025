@@ -18,11 +18,11 @@ def get_recipes(ingredients):
     config = configparser.ConfigParser()
 
     # Read the configuration file
-    config.read('config.ini')
+    config.read(os.path.dirname(__file__) + '/config.ini')
 
     # Access values from the configuration file
     api_key = config.get('Spoonacular', 'key')
-    url = f"https://api.spoonacular.com/recipes/findByIngredients?ingredients={','.join(ingredients)}&apiKey={api_key}"
+    url = f"https://api.spoonacular.com/recipes/findByIngredients?ranking=2&ingredients={','.join(ingredients)}&apiKey={api_key}"
     response = requests.get(url)
     return response.json()
 
