@@ -1,11 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
 import pytesseract
 from PIL import Image
 import requests
+import os
+import configparser
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def extract_text(image_path):
     # Use Tesseract OCR to extract text from an image
@@ -13,7 +15,13 @@ def extract_text(image_path):
     return pytesseract.image_to_string(image).splitlines()
 
 def get_recipes(ingredients):
-    api_key = "YOUR_SPOONACULAR_API_KEY"
+    config = configparser.ConfigParser()
+
+    # Read the configuration file
+    config.read('config.ini')
+
+    # Access values from the configuration file
+    api_key = config.get('Spoonacular', 'key')
     url = f"https://api.spoonacular.com/recipes/findByIngredients?ingredients={','.join(ingredients)}&apiKey={api_key}"
     response = requests.get(url)
     return response.json()
@@ -25,7 +33,7 @@ def upload_image():
         return jsonify({'error': 'No image provided'}), 400
 
     # Save image and extract text
-    image_path = f"./uploads/{image.filename}"
+    image_path = os.path.dirname(__file__) + f"/uploads/{image.filename}"
     image.save(image_path)
     ingredients = extract_text(image_path)
 
