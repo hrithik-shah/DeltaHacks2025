@@ -32,7 +32,7 @@ def extract_items_from_receipt(image_data):
 def processed(text):
     # Define the API URL and your API key (replace with your actual API key)
     prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the text below. Do not include non-consumable items. Replace any abbreviations with its English word adjacent. \n\n{text}"
-    co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
+    co = cohere.ClientV2(api_key=os.getenv("COHERE_API_KEY"))
     res = co.chat(
         model="command-r-plus-08-2024",
         messages=[
@@ -59,7 +59,7 @@ def processed(text):
 def get_instructions(dishes):
     # Define the API URL and your API key (replace with your actual API key)
     prompt = f"Generate a JSON object that maps 'dish name' keys to 'recipe instructions' values given an array of strings of dish names from the text below. Number each step for the instructions. End every sentence with \"#\" Generate the each instruction set as one string. \n\n{dishes}"
-    co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
+    co = cohere.ClientV2(api_key=os.getenv("COHERE_API_KEY"))
     res = co.chat(
         model="command-r-plus-08-2024",
         messages=[
@@ -85,7 +85,7 @@ def fetch_recipes(items):
     """
     # Replace this with a real API endpoint and API key
     API_URL = "https://api.spoonacular.com/recipes/findByIngredients"
-    API_KEY = "51b2b7dd06b5440e87581c395e519360"  # Get an API key from Spoonacular or a similar service
+    API_KEY = os.getenv("SPOONACULAR_API_KEY") # Get an API key from Spoonacular or a similar service
 
     # Join items into a comma-separated string
     ingredients = ','.join(items)
