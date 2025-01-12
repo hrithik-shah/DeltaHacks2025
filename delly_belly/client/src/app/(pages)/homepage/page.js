@@ -64,13 +64,10 @@ const Homepage = () => {
 
   const getRecipes = async (items) => {
     try {
-      const response = await axios.post('/recipes', {
-        items: items, // Pass the items list here
-      });
+      const response = await axios.post('http://127.0.0.1:5000/recipes', { items });
   
       // Handle the successful response
-      console.log('Recipes:', response.data.recipes);
-      return response.data.recipes;
+      return [...response.data.recipes];
     } catch (error) {
       // Handle errors
       if (error.response) {
@@ -85,7 +82,7 @@ const Homepage = () => {
   const navigateTo = (pagename) => {
     getRecipes(ingredients)
       .then((recipes) => {
-        localStorage.setItem('recipes', recipes); ;
+        localStorage.setItem('recipes', JSON.stringify(recipes));
         router.push(`http://localhost:3000/${pagename}`);
       });
   };

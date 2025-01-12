@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   useEffect(() => {
+    // Retrieve recipes from localStorage
     const storedRecipes = localStorage.getItem('recipes');
     if (storedRecipes) {
-      setRecipes(JSON.parse(storedRecipes));
+      const parsedRecipes = [...JSON.parse(storedRecipes)].slice(0, 5);
+      setRecipes(parsedRecipes);
     }
-  }, []);
-
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  }, []); // Empty dependency ensures this runs only once
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-400 to-purple-500">
@@ -44,7 +45,7 @@ export default function Recipes() {
             </p>
             <h3 className="text-2xl font-semibold text-gray-900 mb-2">Ingredients:</h3>
             <ul className="list-disc pl-5 text-gray-700">
-              {selectedRecipe.ingredients.map((ingredient, index) => (
+              {selectedRecipe.usedIngredients.concat(selectedRecipe.missedIngredients).map((ingredient, index) => (
                 <li key={index} className="text-lg">{ingredient}</li>
               ))}
             </ul>

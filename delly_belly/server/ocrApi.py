@@ -148,7 +148,7 @@ def upload_receipt():
 
 @app.route('/recipes', methods=['POST'])
 def get_recipes():
-    data = request.json
+    data = request.get_json()
     if not data or 'items' not in data:
         return jsonify({'error': 'No items provided'}), 400
 
