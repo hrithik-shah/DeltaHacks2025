@@ -55,14 +55,16 @@ export default function Recipes() {
             <div>
               <h3 className="text-2xl font-semibold text-[#522E1A] mt-6 mb-2">Instructions:</h3>
               <div className="text-lg text-[#522E1A] space-y-4">
-                {selectedRecipe.instructions
+              {selectedRecipe && selectedRecipe.instructions 
+                  ? selectedRecipe.instructions
                   .replace(/^"|"$/g, '') // Remove leading and trailing quotation marks
                   .split('\n') // Split by new lines
                   .map((line, index) => (
                     <p key={index}>
                       {line}
                     </p>
-                  ))}
+                  ))
+                  : <p>No instructions available</p>}
               </div>
             </div>
           </div>
