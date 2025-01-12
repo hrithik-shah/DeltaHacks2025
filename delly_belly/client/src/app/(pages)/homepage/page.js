@@ -67,7 +67,7 @@ const Homepage = () => {
       const response = await axios.post('http://127.0.0.1:5000/recipes', { items });
   
       // Handle the successful response
-      return response.data.recipes;
+      return response.data.recipes; 
     } catch (error) {
       // Handle errors
       if (error.response) {
@@ -89,13 +89,13 @@ const Homepage = () => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-r from-[#FFD59E] via-[#FFC76B] to-[#FFB347] overflow-hidden ${inter.className}`}
+      className={`flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-r from-[#8EC5FC] to-[#E0C3FC] ${inter.className}`}
     >
       <h1
-        className={`text-5xl text-center font-semibold mb-8 text-[#522E1A] ${poppins.className}`}
+        className={`text-5xl text-center font-semibold mb-8 ${poppins.className}`}
       >
         Send us a picture of your grocery receipt and we'll{" "}
-        <span className={`font-bold text-[#FF6F3F] ${fugazOne.className}`}>cook</span> for you!
+        <span className={`font-bold ${fugazOne.className}`}>cook</span> for you!
       </h1>
 
       <div className="mb-6">
@@ -117,7 +117,7 @@ const Homepage = () => {
       </div>
 
       {loading ? (
-        <p className="text-lg text-[#522E1A]">Processing...</p>
+        <p className="text-lg text-gray-700">Processing...</p>
       ) : (
         <div className="mt-6 w-full max-w-md text-lg text-gray-700">
           {ingredients.length > 0 && (
