@@ -50,7 +50,7 @@ npm run dev
 
 ### 3. **Set Up Environment Variables**  
 
-Create a `config.env` file in `delly_belly/` and define the following keys:  
+Create a `config.env` file in the root directory and define the following keys:  
 - `COHERE_API_KEY`  
 - `SPOONACULAR_API_KEY`  
 
