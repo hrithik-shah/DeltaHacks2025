@@ -6,6 +6,8 @@ import pytesseract
 from PIL import Image
 import re
 import requests
+import cohere
+import json
 
 def extract_items_from_receipt(image_data):
     """
@@ -30,36 +32,31 @@ def extract_items_from_receipt(image_data):
     return processed("\n".join(extracted_text.split()))
 
 def processed(text):
-    # Define the API URL and your API key (replace with your own API key)
-    cohere_api_url = "https://api.cohere.ai/v1/generate"
-    api_key = "qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1"  # Replace with your actual API key
+    # Define the API URL and your API key (replace with your actual API key)
+    prompt = f"Generate a JSON array of strings of cooking ingredients extracted from the following text:\n{text}"
+    co = cohere.ClientV2(api_key="qbhlyY09uPRoECCFVoolpLSOrOkssthkmkzsdNW1")
 
-    prompt = f"Extract a list of cooking ingredients from the following text and return them as a comma separated string and return nothing else:\n{text}"
-    # Set up the payload for the API call
-    payload = {
-        "model": "command",  # You can choose a different model if needed
-        "prompt": prompt,
-        "max_tokens": 10,  # Adjust max tokens based on the length of the expected response
-        "temperature": 0.7  # Adjust temperature for randomness in response
-    }
+    res = co.chat(
+        model="command-r-plus-08-2024",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+        response_format={"type": "json_object",
+                         "schema": {
+                             "type": "object",
+                             "properties": {
+                                 "ingredients": {
+                                     "type": "array",
+                                 }
+                             },
+                         "required": ["ingredients"]
+                        }}
+    )
 
-    # Headers with the API key
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-
-    # Make the POST request to Cohere's API
-    response = requests.post(cohere_api_url, json=payload, headers=headers)
-
-    # Check if the response is successful
-    if response.status_code == 200:
-        data = response.json()
-        print(data)
-        ingredients = data.get("text", "").strip()
-        print("Extracted Ingredients:", ingredients)
-    else:
-        print(f"Error: {response.status_code}, {response.text}")
+    return json.loads(res.message.content[0].text).get('ingredients')
 
 
 def fetch_recipes(items):
@@ -166,4 +163,4 @@ def get_recipes():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    processed("fluour")
+    print(processed("flour salt\nPNT BUTTR"))
