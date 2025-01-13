@@ -24,7 +24,7 @@
 
 ---
 
-## **Installation**  
+## **Installation & Set Up**  
 
 ### 1. **Clone the Repository**  
 
