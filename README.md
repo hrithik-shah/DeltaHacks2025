@@ -54,7 +54,7 @@ Create a `config.env` file in the root directory and define the following keys:
 - `COHERE_API_KEY`  
 - `SPOONACULAR_API_KEY`  
 
-Ensure valid API keys for Cohere and Spoonacular are used.  
+Make Sure valid API keys for Cohere and Spoonacular are used.  
 
 ### 4. **Set Up the Backend**  
 
